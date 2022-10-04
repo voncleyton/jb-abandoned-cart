@@ -11,7 +11,7 @@ interface AbandonedCart {
 
 export async function abandonedCart(ctx: Context, next: () => Promise<any>) {
   const {
-    clients: { catalog: catalogClient, message: messageClient },
+    clients: { catalog: catalogClient },
   } = ctx
 
   const body: AbandonedCart = await json(ctx.req)
@@ -24,21 +24,25 @@ export async function abandonedCart(ctx: Context, next: () => Promise<any>) {
       value.availabilityQuantity !== undefined && value.availabilityQuantity > 0
   )
 
-  if (items.length > 0) {
-    await messageClient.sendMail(
-      {
-        email: body.email,
-        items,
-        addToCartURL: body.skuURL,
-        additionalFields: body.additionalFields,
-      },
-      body.template
-    )
-  }
+  console.log('email', body.email)
+  console.log('items', items)
+  console.log('additionalFields', body.additionalFields)
+
+
+  // if (items.length > 0) {
+  //   await messageClient.sendMail(
+  //     {
+  //       email: body.email,
+  //       items,
+  //       addToCartURL: body.skuURL,
+  //       additionalFields: body.additionalFields,
+  //     },
+  //     body.template
+  //   )
+  // }
 
   ctx.status = 200
   ctx.body = 'ok'
-  // ctx.set('Cache-Control', headers['cache-control'])
 
   await next()
 }

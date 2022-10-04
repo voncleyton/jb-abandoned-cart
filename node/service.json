@@ -7,14 +7,8 @@
   "workers": 1,
   "routes": {
     "abandonedCart": {
-      "path": "/_v/abandoned-cart",
+      "path": "/_v/jb/abandoned-cart",
       "public": true
-    }
-  },
-  "events": {
-    "configureMailTemplate": {
-      "sender": "apps",
-      "keys": ["setup"]
     }
   }
 }
