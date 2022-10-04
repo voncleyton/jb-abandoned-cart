@@ -35,6 +35,8 @@ export const mapProducts = (
 }
 
 export const mapSkus = (skuURL: string) => {
+
+  if (!skuURL) return []
   const skus = skuURL.match(/(sku|qty|seller|sc)=[0-9]+/g)
   let counter = 0
 
