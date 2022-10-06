@@ -6,12 +6,18 @@ interface AbandonedCart {
   skuURL: string
   email: string
   template: string
+  rclastcart: string
+  homePhone: string
+  accountName: string
   additionalFields: any
 }
 
 export async function abandonedCart(ctx: Context, next: () => Promise<any>) {
   const {
-    clients: { catalog: catalogClient },
+    clients: { 
+      catalog: catalogClient,
+      journeyBuilder: JourneyBuilderClient
+    },
   } = ctx
 
   const body: AbandonedCart = await json(ctx.req)
@@ -24,25 +30,26 @@ export async function abandonedCart(ctx: Context, next: () => Promise<any>) {
       value.availabilityQuantity !== undefined && value.availabilityQuantity > 0
   )
 
-  console.log('email', body.email)
+  const url = `https://${body.accountName}.myvtex.com/checkout/${body.rclastcart}`
+
+  console.log('email do cliente da loja: ', body.email);
+  console.log('link do carrinho: ', url)
+  console.log('account name', body.accountName)
+  console.log('telefone: ', body.homePhone)
   console.log('items', items)
   console.log('additionalFields', body.additionalFields)
 
+  const userObject = {
+    storeClientEmail: body.email,
+    urlCart: url,
+    storeAcountName: body.accountName,
+    storeUserPhoneNumber: body.homePhone,
+  }
 
-  // if (items.length > 0) {
-  //   await messageClient.sendMail(
-  //     {
-  //       email: body.email,
-  //       items,
-  //       addToCartURL: body.skuURL,
-  //       additionalFields: body.additionalFields,
-  //     },
-  //     body.template
-  //   )
-  // }
+  const createCart = await JourneyBuilderClient.createCart(userObject);
 
   ctx.status = 200
-  ctx.body = 'ok'
+  ctx.body = createCart;
 
   await next()
 }
