@@ -8,6 +8,7 @@ import {
 
 import { Clients } from './clients'
 import { abandonedCart } from './middlewares/abandonedCart'
+import { orderForm } from './middlewares/orderForm'
 
 const TIMEOUT_MS = 10000
 const CONCURRENCY = 10
@@ -49,6 +50,9 @@ export default new Service({
   routes: {
     abandonedCart: method({
       POST: [abandonedCart],
+    }),
+    orderForm: method({
+      POST: [orderForm],
     }),
   },
 })

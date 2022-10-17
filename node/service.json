@@ -9,6 +9,10 @@
     "abandonedCart": {
       "path": "/_v/jb/abandoned-cart",
       "public": true
+    },
+    "orderForm": {
+      "path": "/_v/jb/order-form",
+      "public": true
     }
   }
 }
