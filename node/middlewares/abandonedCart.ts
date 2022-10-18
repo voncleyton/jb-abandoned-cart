@@ -32,8 +32,6 @@ export async function abandonedCart(ctx: Context, next: () => Promise<any>) {
 
   const url = `https://${body.accountName}.myvtex.com/checkout/${body.rclastcart}`
 
-  console.log('email do cliente da loja: ', body.email);
-  console.log('link do carrinho: ', url)
   console.log('account name', body.accountName)
   console.log('telefone: ', body.homePhone)
   console.log('items', items)
