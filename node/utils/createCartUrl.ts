@@ -4,6 +4,7 @@ interface CartUrlItems {
 
 export const createCartUrl = (objectItems: CartUrlItems) => { 
   let urlCart = 'add?';
+  const finalUrl = objectItems.items.length === 1 ? '&sc=1' : 'sc=1';
 
   objectItems.items.map((item: any) => {
     if(objectItems.items.length === 1){
@@ -13,5 +14,5 @@ export const createCartUrl = (objectItems: CartUrlItems) => {
     }
   });
 
-  return urlCart
+  return urlCart + finalUrl;
 }

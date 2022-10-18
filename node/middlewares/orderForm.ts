@@ -1,5 +1,6 @@
 import { json } from 'co-body';
 import { createCartUrl } from '../utils/createCartUrl';
+import { createArrayItems } from '../utils/createArrayItems';
 
 // interface OrderForm {
 //   items: [];
@@ -12,13 +13,15 @@ import { createCartUrl } from '../utils/createCartUrl';
 export async function orderForm(ctx: Context, next: () => Promise<any>) {
   // const {
   //   clients: { 
-  //     journeyBuilder: JourneyBuilderClient
+  //     catalog: catalogClient,
+  //     // journeyBuilder: JourneyBuilderClient
   //   },
-  // } = ctx;
+  // } = ctx
 
   const body: any = await json(ctx.req);
 
   const cartUrl = createCartUrl(body);
+  const items = createArrayItems(body.items);
 
   // Modo Provisório
   const accountName = body.paymentData.installmentOptions[0].installments[0].sellerMerchantInstallments[0].id.toLowerCase();
@@ -26,7 +29,11 @@ export async function orderForm(ctx: Context, next: () => Promise<any>) {
   const userObject = {
     storeClientEmail: body.clientProfileData.email,
     urlCart: 'https://' + accountName + '.myvtex.com/checkout/' + cartUrl,
-    storeUserPhoneNumber: body.clientProfileData.phone
+    storeUserPhoneNumber: body.clientProfileData.phone,
+    cartItems: items,
+    storeAccountName: accountName,
+    customerAdditionalFields: body.shippingData.selectedAddresses,
+    store_id: '1'
   }
 
   ctx.status = 200;

@@ -10,6 +10,8 @@ export default class Catalog extends AppClient {
       ?.map((sku: SkuURLItem) => `fq=skuId:${sku.id}`)
       .join('&')
 
+    console.log(searchQS);
+
     return this.http.get(`/proxy/catalog/pub/products/search?${searchQS}`, {
       metric: 'products-get',
     })

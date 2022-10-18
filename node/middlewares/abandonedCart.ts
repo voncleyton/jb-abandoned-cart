@@ -32,8 +32,6 @@ export async function abandonedCart(ctx: Context, next: () => Promise<any>) {
 
   const url = `https://${body.accountName}.myvtex.com/checkout/${body.rclastcart}`
 
-  console.log('account name', body.accountName)
-  console.log('telefone: ', body.homePhone)
   console.log('items', items)
   console.log('additionalFields', body.additionalFields)
 
@@ -46,7 +44,7 @@ export async function abandonedCart(ctx: Context, next: () => Promise<any>) {
 
   const createCart = await JourneyBuilderClient.createCart(userObject);
 
-  ctx.status = 200
+  ctx.status = 400
   ctx.body = createCart;
 
   await next()
