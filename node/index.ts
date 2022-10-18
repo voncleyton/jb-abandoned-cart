@@ -7,7 +7,6 @@ import {
 } from '@vtex/api'
 
 import { Clients } from './clients'
-import { abandonedCart } from './middlewares/abandonedCart'
 import { orderForm } from './middlewares/orderForm'
 
 const TIMEOUT_MS = 10000
@@ -48,9 +47,6 @@ declare global {
 export default new Service({
   clients,
   routes: {
-    abandonedCart: method({
-      POST: [abandonedCart],
-    }),
     orderForm: method({
       POST: [orderForm],
     }),

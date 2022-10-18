@@ -27,13 +27,13 @@ export async function orderForm(ctx: Context, next: () => Promise<any>) {
   const accountName = body.paymentData.installmentOptions[0].installments[0].sellerMerchantInstallments[0].id.toLowerCase();
 
   const userObject = {
-    storeClientEmail: body.clientProfileData.email,
-    urlCart: 'https://' + accountName + '.myvtex.com/checkout/' + cartUrl,
-    storeUserPhoneNumber: body.clientProfileData.phone,
+    customerEmail: body.clientProfileData.email,
+    cartURL: 'https://' + accountName + '.myvtex.com/checkout/' + cartUrl,
+    customerPhone: body.clientProfileData.phone,
     cartItems: items,
     storeAccountName: accountName,
     customerAdditionalFields: body.shippingData.selectedAddresses,
-    store_id: '1'
+    storeId: '1'
   }
 
   ctx.status = 200;
