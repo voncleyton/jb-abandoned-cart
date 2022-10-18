@@ -2,17 +2,17 @@ import { ExternalClient,  InstanceOptions, IOContext } from "@vtex/api";
 
 export default class JourneyBuilder extends ExternalClient {
   constructor(ctx: IOContext, opts?: InstanceOptions) {
-    super('https://webhook.site', ctx, {...opts})
+    super('https://mozarthooks.code7homolog.com.br', ctx, {
+      ...opts,
+      headers: {
+        'X-VTEX-Use-Https': 'true',
+        'Proxy-Authorization': ctx.authToken
+      }
+    })
   }
 
-  // public async createAbandonedCart(userObject: {}): Promise<any> {
-  //   return 'OIEEE';
-  // }
-
-  public async createCart(userObject: {}): Promise<any>  {
+  public async createAbandonedCart(userObject: {}): Promise<any> {
     const data = userObject;
-    // this.http.post(`https://webhook.site/14d3297a-3b86-4bb5-9e81-5b8acc1186fa`, data)
-
-    return data;
+    return this.http.post(`/dev/abandoned-cart`, data);
   }
 }

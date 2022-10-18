@@ -2,21 +2,12 @@ import { json } from 'co-body';
 import { createCartUrl } from '../utils/createCartUrl';
 import { createArrayItems } from '../utils/createArrayItems';
 
-// interface OrderForm {
-//   items: [];
-// }
-
-// interface AbandonedCart {
-
-// }
-
 export async function orderForm(ctx: Context, next: () => Promise<any>) {
-  // const {
-  //   clients: { 
-  //     catalog: catalogClient,
-  //     // journeyBuilder: JourneyBuilderClient
-  //   },
-  // } = ctx
+  const {
+    clients: { 
+      journeyBuilder: JourneyBuilderClient
+    },
+  } = ctx
 
   const body: any = await json(ctx.req);
 
@@ -36,8 +27,10 @@ export async function orderForm(ctx: Context, next: () => Promise<any>) {
     storeId: '1'
   }
 
+  const createAbandonedCart = await JourneyBuilderClient.createAbandonedCart(userObject);
+
   ctx.status = 200;
-  ctx.body = userObject;
+  ctx.body = createAbandonedCart;
 
   await next()
 }
