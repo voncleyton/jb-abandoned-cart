@@ -1,7 +1,3 @@
-// interface CartUrlItems {
-//   items: string[];
-// }
-
 export const createArrayItems = (items: any) => { 
 
   const products: any = [];
@@ -13,7 +9,7 @@ export const createArrayItems = (items: any) => {
       image_url: item.imageUrl,
       price: item.price,
       quantity: item.quantity,
-      product_url: item.imageUrl.split('.')[0] + item.detailUrl
+      product_url: item.imageUrl.split('.')[0] + '.myvtex.com' + item.detailUrl
     })
   })
 
