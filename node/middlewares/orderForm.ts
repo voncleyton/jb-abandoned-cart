@@ -14,6 +14,8 @@ export async function orderForm(ctx: Context, next: () => Promise<any>) {
   const cartUrl = createCartUrl(body);
   const items = createArrayItems(body.items);
 
+  console.log(body);
+
   // Modo Provisório
   // const accountName = body.paymentData.installmentOptions[0].installments[0].sellerMerchantInstallments[0].id.toLowerCase();
 
@@ -33,8 +35,8 @@ export async function orderForm(ctx: Context, next: () => Promise<any>) {
     cartItems: items,
     storeAccountName: accountName,
     customerAdditionalFields: body.shippingData.selectedAddresses,
-    storeId: body.apiKey
-    storeId: '1'
+    storeId: body.apiKey,
+    orderFormId: body.orderFormId
   }
 
   const createAbandonedCart = await JourneyBuilderClient.createAbandonedCart(userObject);
