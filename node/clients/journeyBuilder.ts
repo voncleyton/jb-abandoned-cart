@@ -1,15 +1,5 @@
 import { ExternalClient,  InstanceOptions, IOContext } from "@vtex/api";
 
-// interface IUserObject {
-//   customerEmail: string;
-//   cartURL: string;
-//   customerPhone: string;
-//   cartItems: string[];
-//   storeAccountName: string;
-//   customerAdditionalFields: {};
-//   storeId: string;
-// }
-
 export default class JourneyBuilder extends ExternalClient {
   constructor(ctx: IOContext, opts?: InstanceOptions) {
     super('https://mozarthooks.code7homolog.com.br', ctx, {
@@ -23,7 +13,6 @@ export default class JourneyBuilder extends ExternalClient {
 
   public async createAbandonedCart(userObject: {}): Promise<any> {
     const data = userObject;
-    // return this.http.post(`/dev/abandoned-cart`, data);
-    return data;
+    return this.http.post(`/dev/abandoned-cart`, data);
   }
 }
