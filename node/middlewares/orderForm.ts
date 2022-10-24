@@ -35,7 +35,7 @@ export async function orderForm(ctx: Context, next: () => Promise<any>) {
     cartItems: items,
     storeAccountName: accountName,
     customerAdditionalFields: body.shippingData.selectedAddresses,
-    storeId: body.apiKey,
+    storeId: body.storeId,
     orderFormId: body.orderFormId
   }
 
