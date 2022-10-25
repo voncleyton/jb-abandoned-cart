@@ -4,7 +4,7 @@ import { createArrayItems } from '../utils/createArrayItems';
 
 export async function orderForm(ctx: Context, next: () => Promise<any>) {
   const {
-    clients: { 
+    clients: {
       journeyBuilder: JourneyBuilderClient
     },
   } = ctx
@@ -15,18 +15,9 @@ export async function orderForm(ctx: Context, next: () => Promise<any>) {
   const items = createArrayItems(body.items);
 
   console.log(body);
+  console.log('VTEX CTX ===> ', ctx.vtex);
 
-  // Modo Provisório
-  // const accountName = body.paymentData.installmentOptions[0].installments[0].sellerMerchantInstallments[0].id.toLowerCase();
-
-  // Modo Provisório 2
-  let accountName = '';
-
-  ctx.req.rawHeaders.map(item => {
-    if(item.includes('.myvtex.com')) {
-      accountName = item.split('.')[0];
-    }
-  });
+  let accountName = ctx.vtex.account;
 
   const userObject = {
     customerEmail: body.clientProfileData.email,
