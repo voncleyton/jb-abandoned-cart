@@ -15,7 +15,6 @@ export async function orderForm(ctx: Context, next: () => Promise<any>) {
   const items = createArrayItems(body.items);
 
   console.log(body);
-  console.log('VTEX CTX ===> ', ctx.vtex);
 
   let accountName = ctx.vtex.account;
 
@@ -26,7 +25,7 @@ export async function orderForm(ctx: Context, next: () => Promise<any>) {
     cartItems: items,
     storeAccountName: accountName,
     customerAdditionalFields: body.shippingData.selectedAddresses,
-    storeId: body.storeId,
+    storeId: body.storeId || '',
     orderFormId: body.orderFormId
   }
 
